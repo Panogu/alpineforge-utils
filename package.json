@@ -1,0 +1,24 @@
+{
+	"name": "alpineforge-utils",
+	"version": "0.0.1",
+	"description": "Utils for AlpineForge WordPress websites.",
+	"author": "AlpineForge GmbH (Adrian Pandjaitan)",
+	"license": "MIT",
+	"homepage": "https://alpineforge.ch",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"start": "wp-scripts start"
+	},
+	"devDependencies": {
+		"@10up/block-components": "^1.18.0",
+		"@wordpress/prettier-config": "^4.9.0",
+		"@wordpress/scripts": "^27.5.0"
+	},
+	"prettier": "@wordpress/prettier-config"
+}
