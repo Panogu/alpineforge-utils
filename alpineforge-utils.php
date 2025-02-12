@@ -3,7 +3,7 @@
  * Plugin Name:       AlpineForge Utilities
  * Plugin URI:        https://alpineforge.ch
  * Description:       Utilities for AlpineForge Products.
- * Version:           0.0.5
+ * Version:           0.0.6
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Author:            AlpineForge GmbH (Adrian Pandjaitan)
@@ -12,12 +12,7 @@
  * License URI:       https://opensource.org/licenses/MIT
  * Text Domain:       alpineforge-utils
  * Domain Path:       alps-lang
- *
- *
- *
- * GitHub Plugin URI: Panogu/alpineforge-utils
  * GitHub Plugin URI: https://github.com/Panogu/alpineforge-utils
- * Primary Branch: main
  *
  * @package           alps
  */
