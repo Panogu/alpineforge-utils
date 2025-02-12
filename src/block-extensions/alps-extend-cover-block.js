@@ -161,7 +161,7 @@ function addBlurredBackgroundToCover( element, blockType, attributes ) {
                     marginLeft: 'auto',
                     marginRight: 'auto',
                 },
-                className: 'original-uw',
+                className: 'wp-block-cover__image-background original-uw',
             } );
         }
         return child;
