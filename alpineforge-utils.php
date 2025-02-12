@@ -144,3 +144,5 @@ function alps_utils_enqueue_frontend_styles() {
         filemtime( plugin_dir_path( __FILE__ ) . 'assets/css/style-utils.css' )
     );
 }
+
+add_action( 'wp_enqueue_scripts', 'alps_utils_enqueue_frontend_styles' );
