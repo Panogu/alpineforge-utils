@@ -3,7 +3,7 @@
  * Plugin Name:       AlpineForge Utilities
  * Plugin URI:        https://alpineforge.ch
  * Description:       Utilities for AlpineForge Products.
- * Version:           0.0.6
+ * Version:           0.0.8
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Author:            AlpineForge GmbH (Adrian Pandjaitan)
@@ -134,3 +134,13 @@ function alps_utils_enqueue_frontend_scripts() {
 }
 
 add_action( 'wp_enqueue_scripts', 'alps_utils_enqueue_frontend_scripts' );
+
+// Enqueue the style-utils.css in the frontend
+function alps_utils_enqueue_frontend_styles() {
+    wp_enqueue_style(
+        'alps-utils-frontend-styles',
+        plugins_url( 'assets/css/style-utils.css', __FILE__ ),
+        array(),
+        filemtime( plugin_dir_path( __FILE__ ) . 'assets/css/style-utils.css' )
+    );
+}
