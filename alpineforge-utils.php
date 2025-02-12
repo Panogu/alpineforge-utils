@@ -3,7 +3,7 @@
  * Plugin Name:       AlpineForge Utilities
  * Plugin URI:        https://alpineforge.ch
  * Description:       Utilities for AlpineForge Products.
- * Version:           0.0.1
+ * Version:           0.0.3
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Author:            AlpineForge GmbH (Adrian Pandjaitan)
@@ -109,3 +109,31 @@ function alps_utils_wrap_with_link( $block_content, $block ) {
     return $block_content;
 }
 add_filter( 'render_block_core/group', 'alps_utils_wrap_with_link', 10, 2 );
+
+/**
+ * Include all core-extensions (for WordPress PHP) from the core-extensions folder
+ */
+// Meta Field Block Extensions
+$extensions = glob( __DIR__ . '/core-extensions/meta-fields/*.php' );
+foreach ( $extensions as $extension ) {
+    
+    require_once $extension;
+}
+
+// Support Extensions
+$extensions = glob( __DIR__ . '/core-extensions/block-supports/*.php' );
+foreach ( $extensions as $extension ) {
+    
+    require_once $extension;
+}
+
+// Enqueue the alps-ghub-query-slider-frontent.js script in the frontend
+function alps_utils_enqueue_frontend_scripts() {
+    wp_enqueue_script(
+        'alps-ghub-query-slider-frontend',
+        plugins_url( 'assets/js/alps-ghub-query-slider-frontend.js', __FILE__ ),
+        array( 'jquery' ),
+        filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/alps-ghub-query-slider-frontend.js' ),
+        true
+    );
+}
