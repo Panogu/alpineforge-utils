@@ -21,7 +21,9 @@ add_filter( 'meta_field_block_get_acf_field', function ( $field_value, $object_i
     // Replace your_field_name with your unique name.
     if ( 1 === $field['alps_date_title_format'] ) {
         // Do whatever you want here.
-        $field_value = "1.<br/>Jan";
+        $day = date('d', strtotime($field_value));
+        $month = date('M', strtotime($field_value));
+        $field_value =  $day . '.<br/>' . $month;
     }
   
     return $field_value;
