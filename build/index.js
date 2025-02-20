@@ -10027,6 +10027,108 @@ function addBlurredBackgroundToCover(element, blockType, attributes) {
 
 /***/ }),
 
+/***/ "./src/block-extensions/alps-mfb-extend-date-field.js":
+/*!************************************************************!*\
+  !*** ./src/block-extensions/alps-mfb-extend-date-field.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__);
+
+/**
+ * @abstract Extension for Gutenberg to add a second <img> to a core WordPress cover block to blur the background on ultrawide monitors.
+ *
+ * @author: apandjaitan, AlpineForge GmbH (2025)
+ * @license: GPL-2.0-or-later
+ * 
+ * @package alps-utils
+ */
+
+// https://developer.wordpress.org/news/2024/08/how-to-extend-a-wordpress-block/
+
+
+
+
+ // Modify the saved markup
+
+/**
+ * Add the block attributes
+ * @param {*} settings 
+ * @param {*} name 
+ * @returns 
+ */
+function addDateFormattingAttribute(settings, name) {
+  // Only add the attribute to Image blocks.
+  if (name === 'mfb/meta-field-block') {
+    settings.attributes = {
+      ...settings.attributes,
+      dateFormat: {
+        type: 'string',
+        default: "d.m.Y"
+      }
+    };
+  }
+  return settings;
+}
+(0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__.addFilter)('blocks.registerBlockType', 'alps-utils/add-date-formatting-attribute', addDateFormattingAttribute);
+
+/**
+ * Extend the InspectorControls to add a toggle for the new attribute
+ * @param {*} BlockEdit The original BlockEdit
+ * @returns 
+ */
+function addAlpsMfbInspectorControls(BlockEdit) {
+  return props => {
+    const {
+      name,
+      attributes,
+      setAttributes
+    } = props;
+
+    // Early return if the block is not the Image block.
+    if (name !== 'mfb/meta-field-block') {
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(BlockEdit, {
+        ...props
+      });
+    }
+
+    // Retrieve selected attributes from the block.
+    const {
+      dateFormat
+    } = attributes;
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(BlockEdit, {
+      ...props
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Date Formatting', 'alps-utils')
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('PHP Date Format', 'alps-utils'),
+      value: dateFormat,
+      onChange: value => {
+        setAttributes({
+          dateFormat: value
+        });
+      },
+      help: "Output the date in a certain format"
+    })))));
+  };
+}
+(0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__.addFilter)('editor.BlockEdit', 'alps-utils/add-alps-mfb-inspector-controls', addAlpsMfbInspectorControls);
+
+/***/ }),
+
 /***/ "./src/block-extensions/group-link.js":
 /*!********************************************!*\
   !*** ./src/block-extensions/group-link.js ***!
@@ -23799,6 +23901,8 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _block_extensions_group_link__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./block-extensions/group-link */ "./src/block-extensions/group-link.js");
 /* harmony import */ var _block_extensions_alps_extend_cover_block__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./block-extensions/alps-extend-cover-block */ "./src/block-extensions/alps-extend-cover-block.js");
+/* harmony import */ var _block_extensions_alps_mfb_extend_date_field__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./block-extensions/alps-mfb-extend-date-field */ "./src/block-extensions/alps-mfb-extend-date-field.js");
+
 
 
 })();

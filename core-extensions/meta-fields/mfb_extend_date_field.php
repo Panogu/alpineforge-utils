@@ -1,30 +1,27 @@
 <?php
-function my_admin_only_render_field_settings( $field ) {
-    acf_render_field_setting( $field, array(
-        'label'        => __( 'Date as d.M', 'my-textdomain' ),
-        'instructions' => '',
-        'name'         => 'alps_date_title_format',
-        'type'         => 'true_false',
-        'ui'           => 1,
-    ), true ); // If adding a setting globally, you MUST pass true as the third parameter!
-}
-add_action( 'acf/render_field_settings', 'my_admin_only_render_field_settings' );
+add_filter( 'meta_field_block_get_block_content', function ( $content, $attributes, $block, $post_id, $object_type ) {
 
-add_filter( 'meta_field_block_get_acf_field', function ( $field_value, $object_id, $field, $raw_value, $object_type ) {
-
-    if ( empty( $field['alps_date_title_format'] ) ) {
-        return $field_value;
+    $type = $attributes['fieldSettings']['type'] ?? '';
+    
+    if( $type !== 'date_picker' && $type !== 'date_time_picker' ) {
+        return $content;
     }
 
-    $field_name = $field['name'] ?? '';
-  
-    // Replace your_field_name with your unique name.
-    if ( 1 === $field['alps_date_title_format'] ) {
-        // Do whatever you want here.
-        $day = date('d', strtotime($field_value));
-        $month = date('M', strtotime($field_value));
-        $field_value =  $day . '.<br/>' . $month;
+    $dateTimeFormat = $attributes['dateFormat'] ?? 'd.m.Y';
+
+    $date = $content;
+    $date = new DateTime( $date );
+
+    // Check if there are any \n characters in the date format. If so break apart the date format at the \n character, format the date with each format, and concatenate the formatted date strings together using <br>
+    if( strpos( $dateTimeFormat, '\n' ) !== false ) {
+        $dateFormats = explode( '\n', $dateTimeFormat );
+        $formattedDates = array_map( function( $format ) use ( $date ) {
+            return $date->format( $format );
+        }, $dateFormats );
+        $content = implode( '<br>', $formattedDates );
+    } else {
+        $content = $date->format( $dateTimeFormat );
     }
-  
-    return $field_value;
+
+    return $content;
 }, 10, 5);

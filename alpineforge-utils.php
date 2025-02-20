@@ -3,7 +3,7 @@
  * Plugin Name:       AlpineForge Utilities
  * Plugin URI:        https://alpineforge.ch
  * Description:       Utilities for AlpineForge Products.
- * Version:           0.0.12
+ * Version:           0.0.13
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Author:            AlpineForge GmbH (Adrian Pandjaitan)
